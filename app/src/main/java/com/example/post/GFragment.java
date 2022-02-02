@@ -1,10 +1,14 @@
 package com.example.post;
 
 import android.app.Activity;
+import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,15 +20,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class GFragment extends Fragment {
-    private ImageView iv;
+public class GFragment extends Fragment{
+
+    private CardView cv;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private GridLayoutManager gridLayoutManager;
+
 
     public GFragment() {
         // Required empty public constructor
@@ -35,10 +42,12 @@ public class GFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_g, container, false);
 
+
         final int columns = 4;
         gridLayoutManager = new GridLayoutManager(getActivity(), columns, GridLayoutManager.VERTICAL, false);
 
-        iv = (ImageView)view.findViewById(R.id.iv) ;
+        ((MainActivity)MainActivity.mContext).iv = (ImageView)view.findViewById(R.id.iv) ;
+
         recyclerView = (RecyclerView) view.findViewById(R.id.g_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(gridLayoutManager);
@@ -72,4 +81,5 @@ public class GFragment extends Fragment {
         }
         return listOfAllImages;
     }
+
 }

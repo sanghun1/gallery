@@ -3,6 +3,8 @@ package com.example.post;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.net.UrlQuerySanitizer;
@@ -30,11 +32,9 @@ public class GAdapter  extends RecyclerView.Adapter<GAdapter.GViewHolder> {
 
     public static class GViewHolder extends RecyclerView.ViewHolder {
         public CardView cardView;
-        public ImageView imgView;
-        public GViewHolder(CardView v, ImageView img) {
+        public GViewHolder(CardView v) {
             super(v);
             cardView = v;
-            imgView = img;
         }
 
 
@@ -49,29 +49,22 @@ public class GAdapter  extends RecyclerView.Adapter<GAdapter.GViewHolder> {
     @Override
     public GAdapter.GViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         CardView cardView = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.item_g, parent, false);
-        ImageView imgView = (ImageView) parent.findViewById(R.id.iv);
 
-        final GViewHolder gViewHolder = new GViewHolder(cardView, imgView);
-        cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = gViewHolder.getAdapterPosition();
-//                Uri myUri = Uri.parse(mDataset.get(gViewHolder.getAdapterPosition()));
-//                Drawable dra = Drawable(mDataset.get(gViewHolder.getAdapterPosition()));
-                Toast.makeText(activity, position, Toast.LENGTH_SHORT).show();
-//                imgView.setImageURI(myUri);
-//                Glide.with(activity).load(mDataset.get(position)).centerCrop().override(500).into(imgView);
-            }
-        });
-
-        return new GViewHolder(cardView, imgView);
+        return new GViewHolder(cardView);
     }
 
     @NonNull
     @Override
     public void onBindViewHolder(@NonNull final GViewHolder holder, int position) {
         CardView cardView = holder.cardView;
-        ImageView imgView = holder.imgView;
+        cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(activity, mDataset.get(holder.getAdapterPosition()), Toast.LENGTH_SHORT).show();
+                Bitmap bmp = BitmapFactory.decodeFile(mDataset.get(holder.getAdapterPosition()));
+                ((MainActivity)MainActivity.mContext).iv.setImageBitmap(bmp);
+            }
+        });
         ImageView imageView = cardView.findViewById(R.id.imageView);
         Glide.with(activity).load(mDataset.get(position)).centerCrop().override(500).into(imageView);
     }

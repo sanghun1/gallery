@@ -10,8 +10,8 @@
         android:id="@+id/iv"
         android:layout_width="match_parent"
         android:layout_height="350dp"
-        android:adjustViewBounds="true"
-        />
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/g_view"
